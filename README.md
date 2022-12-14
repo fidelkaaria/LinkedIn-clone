@@ -1,70 +1,49 @@
-# Getting Started with Create React App
+# LinkedIn build with Redux,React and Firebase
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Project Link - https://linkedin-ff033.web.app
 
-## Available Scripts
 
-In the project directory, you can run:
 
-### `npm start`
+## Tools used
+* npx create-react-app linkedin-clone --template redux
+* Install Firebase
+* npm install -g firebase-tools
+* Install Material UI Core and Icons
+* npm install @material-ui/core
+* npm install @material-ui/icons
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+ &mdash; Search Material UI Icons
+ 
+&mdash; https://material-ui.com/components/material-icons
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+* Install React Flip Move
+* npm install --save react-flip-move
 
-### `npm test`
+&mdash; nice animations for list components (user posts)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+&mdash; https://joshwcomeau.github.io/react-flip-move
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Code Snippet
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+#### Grabbing the user posts from Firestore and passing them into State within our app as an array [] of posts
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+  function Feed() {
 
-### `npm run eject`
+      const [posts, setPosts] = useState([]);
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+      useEffect(() => {
+          
+              db.collection('posts').onSnapshot((snapshot) => 
+                              
+                  setPosts(snapshot.docs.map((doc) => (       
+                      {
+                          id: doc.id,
+                          data: doc.data()
+                      }
+                  ))
+              ));
+      }, []); 
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+      ...
+  }
